@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>진학 가이드 — 데이터 기반 입시 전략</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F2EC;--sf:#FFFFFF;--sf2:#EDEBE5;--bd:rgba(0,0,0,.09);--bd2:rgba(0,0,0,.16);--tx:#1C1A16;--tx2:#6A6358;--tx3:#A09880;--ac:#C94B2E;--ac-bg:#FDF0EC;--ac-lt:#F5C4B5;--bl:#2655A0;--bl-bg:#EDF2FB;--gn:#2A7A4F;--gn-bg:#EAF4EF;--wn:#B86018;--wn-bg:#FDF3E7;--pu:#5B44AD;--pu-bg:#F0EDFB;--r:14px;--rs:8px;--sh:0 1px 8px rgba(0,0,0,.06);--shl:0 4px 24px rgba(0,0,0,.10);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;font-size:15px;line-height:1.6;-webkit-text-size-adjust:100%;}
+.app{max-width:480px;margin:0 auto;min-height:100vh;background:var(--bg);padding-bottom:80px;}
+
+/* HEADER */
+.hdr{background:var(--sf);padding:18px 20px 14px;border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:100;}
+.hdr-row{display:flex;align-items:flex-end;justify-content:space-between;}
+.hdr h1{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;letter-spacing:-.02em;}
+.hdr-sub{font-size:11px;color:var(--tx3);letter-spacing:.06em;text-transform:uppercase;margin-top:2px;}
+.hdr-badge{font-size:10px;background:var(--ac-bg);color:var(--ac);border:1px solid var(--ac-lt);padding:3px 8px;border-radius:20px;font-weight:500;white-space:nowrap;}
+
+/* NAV */
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--sf);border-top:1px solid var(--bd);display:flex;z-index:200;padding:0 4px;}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;padding:9px 0 7px;cursor:pointer;gap:2px;border:none;background:none;color:var(--tx3);font-family:inherit;font-size:10px;transition:color .2s;}
+.nb.on{color:var(--ac);}
+.nb svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+
+/* PAGES */
+.pg{display:none;animation:pgIn .22s ease;}
+.pg.on{display:block;}
+@keyframes pgIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+/* LAYOUT */
+.ct{padding:18px 15px;}
+.sec{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);margin-bottom:10px;margin-top:22px;padding-left:2px;}
+.sec:first-child{margin-top:0;}
+
+/* STAT GRID */
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px;}
+.sc{background:var(--sf);border-radius:var(--r);padding:14px 15px;border:1px solid var(--bd);box-shadow:var(--sh);}
+.sc-lb{font-size:11px;color:var(--tx2);margin-bottom:5px;line-height:1.4;}
+.sc-n{font-size:28px;font-weight:700;letter-spacing:-.03em;line-height:1;color:var(--tx);}
+.sc-n.r{color:var(--ac);}.sc-n.g{color:var(--gn);}.sc-n.b{color:var(--bl);}
+.sc-s{font-size:11px;color:var(--tx3);margin-top:4px;}
+
+/* CARD */
+.card{background:var(--sf);border-radius:var(--r);padding:15px;border:1px solid var(--bd);box-shadow:var(--sh);margin-bottom:9px;cursor:pointer;transition:box-shadow .18s,transform .14s;display:block;text-decoration:none;color:inherit;}
+.card:hover{box-shadow:var(--shl);transform:translateY(-1px);}
+.card:active{transform:none;}
+.card.st{cursor:default;}
+.card.st:hover{box-shadow:var(--sh);transform:none;}
+.ctag{font-size:11px;color:var(--tx3);margin-bottom:4px;}
+.ctit{font-size:15px;font-weight:500;line-height:1.45;}
+.cdsc{font-size:13px;color:var(--tx2);margin-top:5px;line-height:1.5;}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px;}
+.badge{display:inline-block;font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;}
+.ba{background:var(--ac-bg);color:var(--ac);border:1px solid var(--ac-lt);}
+.bb{background:var(--bl-bg);color:var(--bl);}
+.bg{background:var(--gn-bg);color:var(--gn);}
+.bw{background:var(--wn-bg);color:var(--wn);}
+.bn{background:var(--sf2);color:var(--tx2);}
+.bp{background:var(--pu-bg);color:var(--pu);}
+
+/* BACK */
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--tx2);cursor:pointer;margin-bottom:14px;background:none;border:none;font-family:inherit;padding:0;}
+.back:hover{color:var(--tx);}
+.ptit{font-family:'DM Serif Display',serif;font-size:21px;font-weight:400;line-height:1.3;margin-bottom:18px;}
+
+/* TIP */
+.tip{border-left:3px solid var(--ac);background:var(--ac-bg);padding:11px 13px;border-radius:0 var(--rs) var(--rs) 0;margin-bottom:9px;font-size:13px;color:#8B3320;line-height:1.6;}
+.tip.bl{border-left-color:var(--bl);background:var(--bl-bg);color:#1A3D6B;}
+.tip.gn{border-left-color:var(--gn);background:var(--gn-bg);color:#1A5034;}
+.tip.wn{border-left-color:var(--wn);background:var(--wn-bg);color:#7A3E0E;}
+.tip.pu{border-left-color:var(--pu);background:var(--pu-bg);color:#3A2880;}
+
+/* COMPARE */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.cc{border-radius:var(--rs);padding:12px;}
+.cc.gd{background:var(--gn-bg);}
+.cc.bd{background:#FEF0EE;}
+.cc.nt{background:var(--sf2);}
+.cc-lb{font-size:11px;font-weight:700;margin-bottom:5px;}
+.cc.gd .cc-lb{color:var(--gn);}.cc.bd .cc-lb{color:var(--ac);}.cc.nt .cc-lb{color:var(--tx2);}
+.cc p{font-size:13px;line-height:1.5;}
+.cc.gd p{color:#1A5034;}.cc.bd p{color:#8B3320;}.cc.nt p{color:var(--tx2);}
+
+/* BAR */
+.bi{margin-bottom:13px;}.bi:last-child{margin-bottom:0;}
+.bih{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+.bil{font-size:13px;font-weight:500;}.biv{font-size:13px;font-weight:700;}
+.bt{height:6px;background:var(--sf2);border-radius:3px;overflow:hidden;}
+.bf{height:6px;border-radius:3px;}
+
+/* TIMELINE */
+.tl{padding:0 4px;}
+.tli{display:flex;gap:14px;margin-bottom:16px;}
+.tld{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.tld.r{background:var(--ac-bg);color:var(--ac);}.tld.b{background:var(--bl-bg);color:var(--bl);}.tld.g{background:var(--gn-bg);color:var(--gn);}.tld.p{background:var(--pu-bg);color:var(--pu);}.tld.w{background:var(--wn-bg);color:var(--wn);}
+.tlt{font-size:14px;font-weight:500;line-height:1.4;}
+.tld2{font-size:13px;color:var(--tx2);margin-top:3px;line-height:1.5;}
+
+/* QUIZ */
+.qcard{background:var(--sf);border-radius:var(--r);padding:17px;border:1px solid var(--bd);box-shadow:var(--sh);margin-bottom:11px;}
+.qnum{font-size:10px;color:var(--tx3);font-weight:500;letter-spacing:.05em;text-transform:uppercase;margin-bottom:5px;}
+.qq{font-size:14px;font-weight:500;margin-bottom:12px;line-height:1.55;}
+.qopts{display:flex;flex-direction:column;gap:7px;}
+.qopt{padding:11px 13px;border:1px solid var(--bd2);border-radius:var(--rs);font-size:13px;color:var(--tx);cursor:pointer;background:var(--bg);text-align:left;font-family:inherit;transition:background .15s;line-height:1.5;}
+.qopt:hover:not(:disabled){background:var(--sf2);}
+.qopt.ok{background:var(--gn-bg);border-color:var(--gn);color:#1A5034;font-weight:500;}
+.qopt.ng{background:#FEF0EE;border-color:var(--ac);color:#8B3320;}
+.qopt:disabled{cursor:default;}
+.qexp{margin-top:11px;font-size:13px;line-height:1.6;display:none;}
+.qexp.show{display:block;}
+
+/* FLASH */
+.flash-scene{perspective:1200px;margin-bottom:11px;cursor:pointer;}
+.flash-inner{position:relative;transition:transform .45s;transform-style:preserve-3d;min-height:160px;}
+.flash-scene.fl .flash-inner{transform:rotateY(180deg);}
+.flash-f,.flash-b{background:var(--sf);border-radius:var(--r);padding:22px 18px;border:1px solid var(--bd);box-shadow:var(--sh);display:flex;flex-direction:column;justify-content:center;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
+.flash-b{position:absolute;top:0;left:0;right:0;bottom:0;transform:rotateY(180deg);background:var(--tx);border-color:var(--tx);}
+.ff-lb{font-size:10px;color:var(--tx3);font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px;}
+.ff-q{font-size:14px;font-weight:500;line-height:1.5;}
+.ff-hint{font-size:12px;color:var(--tx3);margin-top:12px;text-align:center;}
+.fb-lb{font-size:10px;color:rgba(255,255,255,.45);font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px;}
+.fb-a{font-size:13px;color:#fff;line-height:1.7;white-space:pre-line;}
+.flash-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.fn-c{font-size:13px;color:var(--tx2);}
+.fn-arr{display:flex;gap:8px;}
+.fn-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--bd2);background:var(--sf);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--tx);transition:background .15s;}
+.fn-btn:hover{background:var(--sf2);}
+.fn-btn:disabled{opacity:.3;cursor:default;}
+.dv{height:1px;background:var(--bd);margin:16px 0;}
+@media(max-width:520px){.app,.nav{max-width:100%;}}
+</style>
+</head>
+<body>
+<div class="app">
+
+<header class="hdr">
+  <div class="hdr-row">
+    <div><h1>진학 가이드</h1><p class="hdr-sub">데이터 기반 입시 전략</p></div>
+    <span class="hdr-badge">2027 대입 기준</span>
+  </div>
+</header>
+
+<!-- ═══════ HOME ═══════ -->
+<div class="pg on" id="pg-home">
+  <div class="ct">
+    <div class="sec">🚨 2026 수능 긴급 브리핑</div>
+    <div class="card st" style="background:var(--tx);border-color:var(--tx);">
+      <div class="ctag" style="color:rgba(255,255,255,.5);">2026학년도 수능 채점 결과 (2025.12.4 발표)</div>
+      <div class="ctit" style="color:#fff;font-size:16px;">영어 1등급 3.11% — 절대평가 이후 역대 최저</div>
+      <div class="cdsc" style="color:rgba(255,255,255,.75);">국어 표준점수 최고점 147점(전년比 +8점), 전체 만점자 5명. 국어·영어가 당락 좌우</div>
+      <div class="tags">
+        <span class="badge" style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);">국어 불수능</span>
+        <span class="badge" style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);">영어 역대 최저</span>
+        <span class="badge" style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);">응시인원 49.4만</span>
+      </div>
+    </div>
+
+    <div class="sec">핵심 통계</div>
+    <div class="sg">
+      <div class="sc"><div class="sc-lb">3월 학평 대비<br>수능 성적 하락</div><div class="sc-n r">73%</div><div class="sc-s">고3 10명 중 7명</div></div>
+      <div class="sc"><div class="sc-lb">성적 오른 학생 중<br>자습 시간 증가</div><div class="sc-n g">88%</div><div class="sc-s">1061명 설문</div></div>
+      <div class="sc"><div class="sc-lb">1등급 학생<br>오답 원인 분석</div><div class="sc-n b">75%</div><div class="sc-s">5등급 이하 39%</div></div>
+      <div class="sc"><div class="sc-lb">2027 수시<br>모집 비율</div><div class="sc-n">80%</div><div class="sc-s">정시 19.7%</div></div>
+    </div>
+
+    <div class="sec">전략 리포트</div>
+    <div class="card" onclick="goDet('drop')">
+      <div class="ctag">수능 성적 분석</div>
+      <div class="ctit">3월 학평 이후 수능까지 성적 변화</div>
+      <div class="cdsc">10명 중 7명 성적 하락 — 원인과 성적 올린 학생들의 3가지 공통 비결</div>
+      <div class="tags"><span class="badge bw">탐구 하락 최대</span><span class="badge bn">N수생 데이터</span><span class="badge bb">진학닷컴</span></div>
+    </div>
+    <div class="card" onclick="goDet('habit')">
+      <div class="ctag">내신 공부 습관</div>
+      <div class="ctit">내신 등급대별 공부 습관 비교</div>
+      <div class="cdsc">1등급 vs 5등급 이하 — 오답 분석, 스마트폰, 복습 빈도의 결정적 차이</div>
+      <div class="tags"><span class="badge bb">3533명 설문</span><span class="badge bn">진학사</span></div>
+    </div>
+    <div class="card" onclick="goDet('rise')">
+      <div class="ctag">성적 향상 전략</div>
+      <div class="ctit">내신 성적 오른 학생들의 공통 특징</div>
+      <div class="cdsc">자습 시간, 사교육 인식 변화, 포기한 것들 — 1061명 분석 결과</div>
+      <div class="tags"><span class="badge bg">자습이 핵심</span><span class="badge bn">1061명</span></div>
+    </div>
+    <div class="card" onclick="goDet('suneung')">
+      <div class="ctag">2026 수능 분석</div>
+      <div class="ctit">2026학년도 수능 채점 결과 상세 분석</div>
+      <div class="cdsc">국어·영어 불수능 확정 — 영역별 표준점수, 등급컷, 정시 전략 포인트</div>
+      <div class="tags"><span class="badge ba">영어 역대 최저</span><span class="badge bb">국어 147점</span></div>
+    </div>
+    <div class="card" onclick="goDet('2028')">
+      <div class="ctag">대입 제도 변화</div>
+      <div class="ctit">2028 수능 개편 핵심 정리</div>
+      <div class="cdsc">선택과목 폐지, 내신 5등급제 도입 — 현 중학생부터 적용되는 대변화</div>
+      <div class="tags"><span class="badge bp">선택과목 폐지</span><span class="badge bn">내신 5등급제</span><span class="badge bw">현 중3 이하</span></div>
+    </div>
+    <div class="card" onclick="goDet('strategy')">
+      <div class="ctag">입시 전략</div>
+      <div class="ctit">수시 vs 정시 전략 가이드</div>
+      <div class="cdsc">2027학년도 모집 인원 분석과 전형별 준비 전략 — 수시 80% 시대</div>
+      <div class="tags"><span class="badge bg">수시 80.3%</span><span class="badge bb">정시 19.7%</span></div>
+    </div>
+    <div class="card" onclick="goDet('semicon')">
+      <div class="ctag">학과 탐색</div>
+      <div class="ctit">명지대 반도체공학부 가도 좋을까?</div>
+      <div class="cdsc">교육부 특성화대학 선정, 소부장 특화 교육, 글로벌 장비 기업 취업 사례</div>
+      <div class="tags"><span class="badge bg">특성화대학</span><span class="badge bb">소부장 취업</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ DETAIL: 학평→수능 ═══════ -->
+<div class="pg" id="pg-det-drop">
+  <div class="ct">
+    <button class="back" onclick="goHome()"><svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>홈으로</button>
+    <h2 class="ptit">3월 학평 이후<br>수능까지 성적 변화</h2>
+    <div class="sec">전체 성적 변화 비율</div>
+    <div class="sg">
+      <div class="sc"><div class="sc-lb">성적 하락</div><div class="sc-n r">73.2%</div></div>
+      <div class="sc"><div class="sc-lb">성적 유지</div><div class="sc-n">4.1%</div></div>
+      <div class="sc"><div class="sc-lb">성적 상승</div><div class="sc-n g">22.7%</div><div class="sc-s">4명 중 1명</div></div>
+      <div class="sc"><div class="sc-lb">백분위 10↑ 상승</div><div class="sc-n g">1/4</div><div class="sc-s">상승자 중</div></div>
+    </div>
+    <div class="sec">과목별 하락폭</div>
+    <div class="card st">
+      <div class="bi"><div class="bih"><span class="bil">탐구</span><span class="biv" style="color:var(--ac);">7.94% 하락</span></div><div class="bt"><div class="bf" style="width:79.4%;background:var(--ac);"></div></div></div>
+      <div class="bi"><div class="bih"><span class="bil">수학</span><span class="biv" style="color:var(--wn);">7.43% 하락</span></div><div class="bt"><div class="bf" style="width:74.3%;background:var(--wn);"></div></div></div>
+      <div class="bi"><div class="bih"><span class="bil">국어</span><span class="biv" style="color:var(--tx2);">7.08% 하락</span></div><div class="bt"><div class="bf" style="width:70.8%;background:var(--tx2);"></div></div></div>
+    </div>
+    <div class="tip wn">⚠️ 사탐런 주의 — 고3 사탐 응시 비율 2022년 56.2% → 2026년 64.6%. 탐구 하락폭이 가장 크므로 방심 금물</div>
+    <div class="sec">영어 등급 변화</div>
+    <div class="cmp">
+      <div class="cc bd"><div class="cc-lb">3월 학평</div><p>평균 2.64등급</p></div>
+      <div class="cc gd"><div class="cc-lb">수능</div><p>평균 2.79등급 (하락)</p></div>
+    </div>
+    <div class="sec">N수생 등급별 변화 (2025학년도)</div>
+    <div class="card st">
+      <div style="font-size:13px;color:var(--tx2);line-height:1.8;">
+        <strong style="color:var(--tx);">국어</strong> — 3등급에서 상승 40.8%, 4등급에서 상승 49.4%<br>
+        <strong style="color:var(--tx);">수학</strong> — 7등급에서 상승 48.3% (유독 큰 폭)<br>
+        <strong style="color:var(--tx);">탐구</strong> — 5등급에서 상승 69.9%, 성적 상승 폭 최대
+      </div>
+      <div class="tip gn" style="margin:10px 0 0;">탐구는 반복 학습이 누적될수록 유리 — N수생에게 가장 큰 무기</div>
+    </div>
+    <div class="sec">성적이 떨어지는 이유</div>
+    <div class="tip">3월 성적에 만족해 적당히 공부</div>
+    <div class="tip">수시 준비를 이유로 수능 공부 방치</div>
+    <div class="tip">수능 최저 과목만 신경 써서 전체 평균 하락</div>
+    <div class="sec">성적 올린 학생들의 3가지 비결</div>
+    <div class="tip gn">① 강의보다 자습 — 스스로 문제 풀고 고민하는 순공 시간을 강의 시간보다 더 늘리기</div>
+    <div class="tip gn">② SNS·스마트폰 최소화 — 수면 줄이기 ✕, 스스로 안 되면 강제적 관리 요청</div>
+    <div class="tip gn">③ 오답에 진심 — 틀린 문제를 완전히 내 것으로 만들 때까지 반복 학습</div>
+  </div>
+</div>
+
+<!-- ═══════ DETAIL: 공부습관 ═══════ -->
+<div class="pg" id="pg-det-habit">
+  <div class="ct">
+    <button class="back" onclick="goHome()"><svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>홈으로</button>
+    <h2 class="ptit">내신 등급대별<br>공부 습관 비교</h2>
+    <div class="tip bl" style="margin-bottom:16px;">2025년 고3 3,533명 대상 설문 (진학사)</div>
+    <div class="sec">오답 분석 습관</div>
+    <div class="cmp">
+      <div class="cc gd"><div class="cc-lb">1등급</div><p>오답 원인 분석<br><strong>75.4%</strong></p></div>
+      <div class="cc bd"><div class="cc-lb">5등급 이하</div><p>점수만 확인하고 끝<br><strong>61.5%</strong></p></div>
+    </div>
+    <div class="sec">복습 빈도</div>
+    <div class="cmp">
+      <div class="cc gd"><div class="cc-lb">1등급</div><p>수업 당일 복습<br><strong>34.6%</strong></p></div>
+      <div class="cc bd"><div class="cc-lb">5등급 이하</div><p>수업 당일 복습<br><strong>18.6%</strong></p></div>
+    </div>
+    <div class="sec">스마트폰 사용 습관</div>
+    <div class="cmp">
+      <div class="cc gd"><div class="cc-lb">1등급</div><p>공부 중 멀리 둠 <strong>25.2%</strong><br>하루 4h↑ 사용 <strong>12.2%</strong></p></div>
+      <div class="cc bd"><div class="cc-lb">5등급 이하</div><p>옆에 둠 <strong>44.1%</strong><br>하루 4h↑ 사용 <strong>39.6%</strong></p></div>
+    </div>
+    <div class="sec">시험 준비 방식</div>
+    <div class="cmp">
+      <div class="cc gd"><div class="cc-lb">1등급</div><p>교사 출제 예상 문제 미리 생각 <strong>35.2%</strong></p></div>
+      <div class="cc bd"><div class="cc-lb">5등급 이하</div><p>출제 예상 생각 <strong>7.7%</strong>에 불과</p></div>
+    </div>
+    <div class="sec">이해 확인 방법 (파인만 기법)</div>
+    <div class="tip gn">1등급 30%는 배운 내용을 다른 사람에게 설명하거나 혼잣말로 설명해 본다 — 설명할 수 없으면 아직 모르는 것</div>
+    <div class="sec">유튜브 쇼츠·앱 습관적 접속</div>
+    <div class="card st">
+      <div class="bi"><div class="bih"><span class="bil">1등급</span><span class="biv" style="color:var(--gn);">46.0%</span></div><div class="bt"><div class="bf" style="width:46%;background:var(--gn);"></div></div></div>
+      <div class="bi"><div class="bih"><span class="bil">5등급 이하</span><span class="biv" style="color:var(--ac);">69.2%</span></div><div class="bt"><div class="bf" style="width:69.2%;background:var(--ac);"></div></div></div>
+    </div>
+    <div class="sec">합격 선배의 말</div>
+    <div class="card st" style="border-left:3px solid var(--bl);background:var(--bl-bg);">
+      <div class="cdsc" style="color:#1A3D6B;line-height:1.7;">"틀린 문제를 해설과 함께 정리해두고 시간 날 때마다 읽어 봤다. 수학은 틀린 문제뿐 아니라 해당 문제에 적용된 원리를 적어놓는 노트를 따로 만들었다."<br><span style="font-size:12px;margin-top:6px;display:block;opacity:.7;">— 서울대 언론정보학과 합격 배연우 씨</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ DETAIL: 성적 오른 학생 ═══════ -->
+<div class="pg" id="pg-det-rise">
+  <div class="ct">
+    <button class="back" onclick="goHome()"><svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>홈으로</button>
+    <h2 class="ptit">내신 성적 오른<br>학생들의 특징</h2>
+    <div class="tip bl" style="margin-bottom:16px;">성적이 크게 오른 학생 1,061명 설문 조사 (진학사)</div>
+    <div class="sec">성적 상승의 계기</div>
+    <div class="card st">
+      <div class="bi"><div class="bih"><span class="bil">목표 대학·전공 설정</span><span class="biv" style="color:var(--pu);">31%</span></div><div class="bt"><div class="bf" style="width:31%;background:var(--pu);"></div></div></div>
+      <div class="bi"><div class="bih"><span class="bil">성적 하락 위기감</span><span class="biv" style="color:var(--bl);">27.5%</span></div><div class="bt"><div class="bf" style="width:27.5%;background:var(--bl);"></div></div></div>
+      <div class="bi"><div class="bih"><span class="bil">특정 과목 성공 경험</span><span class="biv" style="color:var(--gn);">18.7%</span></div><div class="bt"><div class="bf" style="width:18.7%;background:var(--gn);"></div></div></div>
+      <div class="bi"><div class="bih"><span class="bil">경쟁 심리</span><span class="biv" style="color:var(--tx2);">10.3%</span></div><div class="bt"><div class="bf" style="width:10.3%;background:var(--tx2);"></div></div></div>
+    </div>
+    <div class="sec">핵심 변화 — 자습 시간</div>
+    <div class="sg">
+      <div class="sc"><div class="sc-lb">자습 증가 응답</div><div class="sc-n g">88%</div><div class="sc-s">성적 오른 학생 중</div></div>
+      <div class="sc"><div class="sc-lb">사교육 복습 안 함</div><div class="sc-n">40%→6%</div><div class="sc-s">성적 전→후</div></div>
+    </div>
+    <div class="tip gn">성적 오른 뒤: 자습 비중이 더 높다(38.5%) vs 성적 오르기 전: 강의 비중이 더 높다(30.2%)</div>
+    <div class="sec">비효율적이라고 느낀 학습 방법</div>
+    <div class="tip">강의만 듣고 복습 안 함 (37.5%)</div>
+    <div class="tip">문제 오답 정리 안 함 (30.3%)</div>
+    <div class="tip">계획 없이 오래 앉아 있기 (29.5%)</div>
+    <div class="sec">학습 방법 변화 — 어려운 문제 만났을 때</div>
+    <div class="cmp">
+      <div class="cc bd"><div class="cc-lb">성적 오르기 전</div><p>해설지 바로 확인 <strong>43.2%</strong><br>표시만 하고 방치 <strong>22.8%</strong></p></div>
+      <div class="cc gd"><div class="cc-lb">성적 오른 뒤</div><p>충분히 고민 후 확인 <strong>59%</strong><br>표시 후 재도전 <strong>24.8%</strong></p></div>
+    </div>
+    <div class="sec">성적 올리기 위해 포기한 것</div>
+    <div class="cmp">
+      <div class="cc bd"><div class="cc-lb">게임·여가</div><p>42.6%가 포기</p></div>
+      <div class="cc bd"><div class="cc-lb">늦잠·늦은 취침</div><p>22.7%가 포기</p></div>
+    </div>
+    <div class="tip gn">수면 시간은 43.6%가 성적 전후 변화 없다고 응답 — 잠을 줄이는 것보다 스마트폰·여가 시간 줄이기가 더 효과적</div>
+    <div class="sec">합격 선배의 말</div>
+    <div class="card st" style="border-left:3px solid var(--gn);background:var(--gn-bg);margin-bottom:9px;">
+      <div class="cdsc" style="color:#1A5034;line-height:1.7;">"주말 2~3시간이던 자습을 고1 2학기부터 하루 13시간 이상으로 늘렸다. 학원만 다닌다고 성적이 오르지 않는다."<br><span style="font-size:12px;margin-top:6px;display:block;opacity:.7;">— 서울대 물리교육과 합격 이정훈 씨 (1학기 2.14등급 → 고3 1.65등급)</span></div>
+    </div>
+    <div class="card st" style="border-left:3px solid var(--bl);background:var(--bl-bg);">
+      <div class="cdsc" style="color:#1A3D6B;line-height:1.7;">"수업 시간에 선생님이 강조한 부분을 막힘없이 말할 수 있을 정도로 외웠고, 스스로 시험 문제를 만들어 풀어 보기도 했다."<br><span style="font-size:12px;margin-top:6px;display:block;opacity:.7;">— 성균관대 합격 윤재욱 씨 (내신 2등급 → 1등급)</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ DETAIL: 2026 수능 ═══════ -->
+<div class="pg" id="pg-det-suneung">
+  <div class="ct">
+    <button class="back" onclick="goHome()"><svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>홈으로</button>
+    <h2 class="ptit">2026학년도 수능<br>채점 결과 분석</h2>
+    <div class="sec">응시 현황</div>
+    <div class="sg">
+      <div class="sc"><div class="sc-lb">총 응시인원</div><div class="sc-n">49.4만</div><div class="sc-s">전년比 3만↑</div></div>
+      <div class="sc"><div class="sc-lb">전체 만점자</div><div class="sc-n r">5명</div><div class="sc-s">전년 11명의 절반</div></div>
+    </div>
+    <div class="sec">영역별 표준점수 최고점</div>
+    <div class="card st">
+      <div class="bi"><div class="bih"><span class="bil">국어</span><span class="biv" style="color:var(--ac);">147점</span></div><div class="bt"><div class="bf" style="width:98%;background:var(--ac);"></div></div><div style="font-size:11px;color:var(--tx3);margin-top:3px;">전년 139점 대비 +8점. 만점자 261명 (전년 1,055명의 1/4)</div></div>
+      <div class="bi"><div class="bih"><span class="bil">수학</span><span class="biv" style="color:var(--wn);">139점</span></div><div class="bt"><div class="bf" style="width:92.7%;background:var(--wn);"></div></div><div style="font-size:11px;color:var(--tx3);margin-top:3px;">전년 140점 대비 -1점. 만점자 780명 (전년 1,522명)</div></div>
+      <div class="bi"><div class="bih"><span class="bil">영어 1등급 비율</span><span class="biv" style="color:var(--ac);">3.11%</span></div><div class="bt"><div class="bf" style="width:31.1%;background:var(--ac);"></div></div><div style="font-size:11px;color:var(--tx3);margin-top:3px;">절대평가 전환(2018) 이후 역대 최저. 전년 6.22%, 2024년 4.71%</div></div>
+    </div>
+    <div class="tip" style="background:#FEF0EE;border-left-color:var(--ac);">역대 최악의 영어 불수능 — 수시 수능 최저 충족률 크게 감소 전망</div>
+    <div class="sec">1등급 컷 (표준점수)</div>
+    <div class="sg">
+      <div class="sc"><div class="sc-lb">국어 1등급 컷</div><div class="sc-n r">133점</div><div class="sc-s">2등급 126점</div></div>
+      <div class="sc"><div class="sc-lb">수학 1등급 컷</div><div class="sc-n">128점</div><div class="sc-s">2등급 124점</div></div>
+    </div>
+    <div class="sec">탐구 선택 경향 변화 (사탐런)</div>
+    <div class="tip wn">사탐 응시자 전체의 77.3%로 전년(62.1%)보다 15.2%p 급증. 과탐 2등급 이내 학생 25.3% 감소, 사탐 2등급 이내 30% 증가</div>
+    <div class="sec">국어 vs 수학 역전</div>
+    <div class="tip bl">국어 최고점(147)이 수학(139)보다 8점 높음 → 국어를 잘 본 학생이 정시에서 유리. 수학 만점도 국어 만점을 이기기 어려운 구조</div>
+    <div class="sec">정시 전략 포인트</div>
+    <div class="tip gn">영어 최저 충족 가능하다면 오히려 유리 — 경쟁자가 대폭 줄어드는 효과</div>
+    <div class="tip bl">응시인원 증가 + 의대 정원 감원 → 최상위 경쟁 치열. 소신 지원 전략이 그 어느 때보다 중요</div>
+  </div>
+</div>
+
+<!-- ═══════ DETAIL: 2028 개편 ═══════ -->
+<div class="pg" id="pg-det-2028">
+  <div class="ct">
+    <button class="back" onclick="goHome()"><svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>홈으로</button>
+    <h2 class="ptit">2028 수능 개편<br>핵심 정리</h2>
+    <div class="tip pu" style="margin-bottom:16px;">현재 중학교 3학년 이하부터 적용 — 2027년 11월 18일 시행</div>
+    <div class="sec">핵심 변화 3가지</div>
+    <div class="tl">
+      <div class="tli"><div class="tld p">1</div><div><div class="tlt">수능 선택과목 전면 폐지</div><div class="tld2">국어·수학·탐구 모두 공통과목으로 통일. 국어+수학은 6년 만에, 탐구는 1999년 이후 30년 만에 공통과목 체제로 전환. 선택과목 유불리 해소 목적</div></div></div>
+      <div class="tli"><div class="tld b">2</div><div><div class="tlt">내신 5등급제 도입</div><div class="tld2">기존 9등급 상대평가 → 5등급 절대평가+상대평가 병기. 모든 학년·과목에 일관 적용. 서술·논술형 평가도 확대 예정</div></div></div>
+      <div class="tli"><div class="tld g">3</div><div><div class="tlt">고교학점제 도입</div><div class="tld2">학생이 진로·적성에 따라 과목 선택. 3년간 192학점 취득 시 졸업. 과목 선택이 입시 전략의 핵심 변수</div></div></div>
+    </div>
+    <div class="sec">수능 출제 과목 변화</div>
+    <div class="card st">
+      <div style="font-size:13px;color:var(--tx2);line-height:1.9;"><strong style="color:var(--tx);">국어</strong> — 화법과 언어, 독서와 작문, 문학<br><strong style="color:var(--tx);">수학</strong> — 대수(舊 수학Ⅰ), 미적분Ⅰ(舊 수학Ⅱ), 확률과 통계<br><strong style="color:var(--tx);">영어</strong> — 영어Ⅰ, 영어Ⅱ<br><strong style="color:var(--tx);">탐구</strong> — 통합사회 1·2, 통합과학 1·2 (모두 필수)</div>
+    </div>
+    <div class="tip wn">⚠️ 미적분Ⅱ·기하가 수능 범위 제외 → 이공계·의대 지망생은 내신에서 해당 과목 이수 여부가 입시 변수로 작용 가능</div>
+    <div class="sec">대입 전형의 변화 방향</div>
+    <div class="tip pu">수능 변별력 약화 → 상위권 대학들이 수능 + 정성평가 혼합 형태 확대 전망. 학생부·세특·내신이 더욱 중요해짐</div>
+    <div class="tip bl">서울대는 이미 정시에서도 학생부 교과 정성평가 실시. 2028 체제에서 이 흐름 가속화 예상</div>
+    <div class="sec">현재 학년별 적용 수능</div>
+    <div class="cmp">
+      <div class="cc nt"><div class="cc-lb">현 고1·고2·고3</div><p>기존 수능 체제 (선택과목 유지)</p></div>
+      <div class="cc nt"><div class="cc-lb">현 중3 이하</div><p>2028 수능 체제 적용 (선택과목 폐지)</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ DETAIL: 수시·정시 전략 ═══════ -->
+<div class="pg" id="pg-det-strategy">
+  <div class="ct">
+    <button class="back" onclick="goHome()"><svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>홈으로</button>
+    <h2 class="ptit">수시 vs 정시<br>전략 가이드</h2>
+    <div class="sec">2027학년도 모집 인원</div>
+    <div class="sg">
+      <div class="sc"><div class="sc-lb">수시 모집</div><div class="sc-n g">80.3%</div><div class="sc-s">27만7,583명</div></div>
+      <div class="sc"><div class="sc-lb">정시 모집</div><div class="sc-n">19.7%</div><div class="sc-s">6만8,134명</div></div>
+    </div>
+    <div class="tip gn">수시가 전체의 80% — 재학생은 수시를 절대 포기할 수 없는 구조. 수시 6회 최대한 활용</div>
+    <div class="sec">수시 전형 가이드</div>
+    <div class="tl">
+      <div class="tli"><div class="tld g" style="font-size:9px;">학종</div><div><div class="tlt">학생부종합전형 (상위 15개 대학 대세)</div><div class="tld2">정성평가로 세특·비교과·학업 역량 종합 평가. 서울대·고려대·연세대는 학종 비중이 가장 높음</div></div></div>
+      <div class="tli"><div class="tld b" style="font-size:9px;">교과</div><div><div class="tlt">학생부교과전형</div><div class="tld2">내신 등급이 핵심. 수능 최저 충족 여부가 당락을 가름. 충족하면 경쟁자 감소 효과</div></div></div>
+      <div class="tli"><div class="tld w" style="font-size:9px;">논술</div><div><div class="tlt">논술전형 (역전 기회)</div><div class="tld2">홍익대·외국어대·중앙대는 논술 비중이 교과보다 높음. 내신 불리할 때 역전 가능. 수능 최저 충족 필수</div></div></div>
+    </div>
+    <div class="sec">2027학년도 정시 주요 변화</div>
+    <div class="tip wn">정시도 이제 수능만이 아님 — 성균관대 사범대 일부, 중앙대(출결 10%), 동국대(학생부 10%) 등 학생부 반영 도입·확대</div>
+    <div class="tip bl">다군 모집 대학 증가(무전공 영향). 건국대 다군 확대, 시립대 다군 폐지, 경희대 국제학부 나군→가군 변경</div>
+    <div class="sec">수능 최저 전략</div>
+    <div class="card st">
+      <div class="cdsc" style="line-height:1.8;">2026 수능 영어 1등급 비율 3.11%로 급감 → 수시 수능 최저 충족률 감소 전망.<br><br>수능 최저를 요구하는 전형에서 경쟁자가 줄어드는 효과 → <strong style="color:var(--gn);">수능 최저 충족 가능하다면 오히려 유리한 전형</strong></div>
+    </div>
+    <div class="sec">월별 핵심 일정 (2027 대입)</div>
+    <div class="tl">
+      <div class="tli"><div class="tld r">3월</div><div><div class="tlt">3월 학평 시행</div><div class="tld2">현 위치 파악. 단, 재수생 없는 시험 — 과신 금물</div></div></div>
+      <div class="tli"><div class="tld w">6월</div><div><div class="tlt">6월 모의평가</div><div class="tld2">재수생 포함 첫 시험. 수시 최저 충족 가능성 판단 기준점</div></div></div>
+      <div class="tli"><div class="tld b">8월</div><div><div class="tlt">생기부 마감 (8.31)</div><div class="tld2">수시 지원용 학생부 최종 기록 마감. 세특 마무리</div></div></div>
+      <div class="tli"><div class="tld g">9월</div><div><div class="tlt">수시 원서 접수 (9.7~9.11)</div><div class="tld2">6장 활용 전략 수립. 9월 모의평가 결과 반영해 지원 라인 결정</div></div></div>
+      <div class="tli"><div class="tld r">11월</div><div><div class="tlt">수능 시행</div><div class="tld2">2026년 11월 셋째 주 목요일 시행 예정</div></div></div>
+      <div class="tli"><div class="tld p">12월</div><div><div class="tlt">수시 합격 발표 ~ 정시 원서 접수</div><div class="tld2">수시 미충원 인원 정시로 이월. 수능 성적표 받는 즉시 정시 전략 수립</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ DETAIL: 명지대 반도체 ═══════ -->
+<div class="pg" id="pg-det-semicon">
+  <div class="ct">
+    <button class="back" onclick="goHome()"><svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>홈으로</button>
+    <h2 class="ptit">명지대 반도체공학부<br>가도 좋을까?</h2>
+    <div class="card st">
+      <div style="font-size:18px;font-family:'DM Serif Display',serif;color:var(--tx);margin-bottom:3px;">명지대학교</div>
+      <div style="font-size:13px;color:var(--tx2);margin-bottom:10px;">반도체공학부 (소부장 특화)</div>
+      <div class="tags" style="margin-bottom:12px;"><span class="badge bg">교육부 특성화대학</span><span class="badge bb">연간 70억 지원</span><span class="badge bp">호서대 공동운영</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;border-top:1px solid var(--bd);padding-top:12px;">
+        <div style="text-align:center;"><div style="font-size:20px;font-weight:700;letter-spacing:-.02em;">98명</div><div style="font-size:11px;color:var(--tx3);margin-top:2px;">2026 신입생</div></div>
+        <div style="text-align:center;"><div style="font-size:20px;font-weight:700;letter-spacing:-.02em;">8명</div><div style="font-size:11px;color:var(--tx3);margin-top:2px;">전임교원</div></div>
+        <div style="text-align:center;"><div style="font-size:20px;font-weight:700;letter-spacing:-.02em;">19명</div><div style="font-size:11px;color:var(--tx3);margin-top:2px;">총 교원</div></div>
+      </div>
+    </div>
+    <div class="sec">성장 지표</div>
+    <div class="sg">
+      <div class="sc"><div class="sc-lb">신입생 규모</div><div class="sc-n g">30→98</div><div class="sc-s">2023→2026</div></div>
+      <div class="sc"><div class="sc-lb">전임교원</div><div class="sc-n g">2→8</div><div class="sc-s">2023→2026</div></div>
+    </div>
+    <div class="sec">핵심 특징</div>
+    <div class="tip gn">소재·부품·장비(소부장) 특화 — 칩 설계가 아닌 공정 장비·테스트·패키징 중심 교육</div>
+    <div class="tip bl">실제 삼성·SK하이닉스 장비 도입. 연구실 장비 1대 30~50억원. 실습 비용 전액 학교 부담</div>
+    <div class="tip pu">SK하이닉스 직원들도 연 2회 실습 방문. SEMI 협회 매년 1억↑ 투자해 단기 실무교육 진행</div>
+    <div class="sec">학생 진로 변화</div>
+    <div class="cmp">
+      <div class="cc bd"><div class="cc-lb">입학 시 희망</div><p>대부분 삼성전자·SK하이닉스 대기업 목표</p></div>
+      <div class="cc gd"><div class="cc-lb">졸업 시 희망</div><p>10명 중 7명이 반도체 장비·소부장 기업으로 변화</p></div>
+    </div>
+    <div class="sec">취업 사례</div>
+    <div class="card st">
+      <div class="cdsc" style="line-height:1.8;">ASML, 램리서치, 도쿄 일렉트론 등 글로벌 반도체 장비 기업 취업 다수. 학석사 연계 과정(학사 3.5년 + 석사 1.5년) 이수 학생 절반 이상. 학부 3학년에 SCI급 논문 게재 사례 있음.</div>
+    </div>
+    <div class="sec">교수진</div>
+    <div class="card st">
+      <div style="font-size:13px;color:var(--tx2);line-height:1.8;">삼성전자 26년 근무 후 이직한 윤주병 교수 (연봉 1/3로 줄었지만 보람). 삼성·SK하이닉스 HBM 개발 출신 하상렬 교수. 현직 경험 기반 실무 중심 수업 진행.</div>
+    </div>
+    <div class="sec">반도체 특성화대학 지원 현황</div>
+    <div class="tip bl">서울대·성균관대 연 45억, 명지대·호서대 연 70억 지원. 2026년 기준 반도체 20개교·이차전지 5개교·바이오 5개교·로봇 3개교 총 33개교 지정</div>
+  </div>
+</div>
+
+<!-- ═══════ QUIZ ═══════ -->
+<div class="pg" id="pg-quiz">
+  <div class="ct">
+    <div class="sec">입시 전략 퀴즈 (10문제)</div>
+    <div id="quiz-ct"></div>
+  </div>
+</div>
+
+<!-- ═══════ FLASH ═══════ -->
+<div class="pg" id="pg-flash">
+  <div class="ct">
+    <div class="flash-nav">
+      <span class="fn-c" id="fl-c">1 / 10</span>
+      <div class="fn-arr">
+        <button class="fn-btn" id="fl-p" onclick="flashNav(-1)" disabled>◀</button>
+        <button class="fn-btn" id="fl-n" onclick="flashNav(1)">▶</button>
+      </div>
+    </div>
+    <div class="sec" style="margin-top:0;">플래시카드 — 탭해서 답 확인</div>
+    <div id="flash-ct"></div>
+  </div>
+</div>
+
+<!-- NAV BAR -->
+<nav class="nav">
+  <button class="nb on" id="nb-home" onclick="switchTab('home')">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>홈
+  </button>
+  <button class="nb" id="nb-quiz" onclick="switchTab('quiz')">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>퀴즈
+  </button>
+  <button class="nb" id="nb-flash" onclick="switchTab('flash')">
+    <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>플래시카드
+  </button>
+</nav>
+
+</div>
+<script>
+const QUIZ=[
+  {q:"3월 학평 대비 수능에서 성적이 하락하는 고3 학생의 비율은?",opts:["약 50%","약 60%","약 73%","약 85%"],ans:2,exp:"73.2%가 성적 하락, 22.7%만 상승합니다. 성적에 만족해 방심하는 것이 가장 큰 원인입니다."},
+  {q:"과목 중 3월 학평 대비 수능 하락폭이 가장 큰 과목은?",opts:["국어","수학","영어","탐구"],ans:3,exp:"탐구 7.94% > 수학 7.43% > 국어 7.08% 순입니다. 탐구를 만만하게 보는 경향과 N수생의 반복 누적 학습이 원인입니다."},
+  {q:"2026학년도 수능 영어 1등급 비율은?",opts:["4.71%","5.03%","3.11%","6.22%"],ans:2,exp:"3.11% — 절대평가 전환(2018) 이후 역대 최저입니다. 전년(6.22%)의 절반 수준으로 급감했습니다."},
+  {q:"2026학년도 수능 국어 표준점수 최고점은?",opts:["139점","143점","147점","150점"],ans:2,exp:"147점으로 전년(139점) 대비 8점 상승. 만점자 261명으로 전년(1,055명)의 1/4 수준으로 감소했습니다."},
+  {q:"내신 성적이 오른 학생의 몇 %가 자습 시간이 늘었다고 응답했나?",opts:["68%","78%","88%","98%"],ans:2,exp:"88.2%가 자습 시간 증가를 핵심 요인으로 꼽았습니다. 사교육보다 스스로 소화하는 시간이 중요합니다."},
+  {q:"내신 1등급 학생 중 시험 후 오답 원인을 분석하는 비율은?",opts:["45%","55%","65%","75%"],ans:3,exp:"1등급의 75.4%가 오답 원인 분석. 반면 5등급 이하는 61.5%가 점수만 확인하고 끝납니다."},
+  {q:"2027학년도 전국 수시 모집 비율은?",opts:["65%","70%","75%","80%"],ans:3,exp:"수시 80.3%(27만7,583명), 정시 19.7%(6만8,134명). 수시가 절대적으로 많으므로 내신과 수능 최저 관리가 핵심입니다."},
+  {q:"성적이 오른 학생들이 성적 향상의 가장 큰 계기로 꼽은 것은?",opts:["경쟁 심리","성적 하락 위기감","목표 대학·전공 설정","사교육 증가"],ans:2,exp:"목표 대학·전공 설정 31%로 1위. 구체적인 목표가 학습 동기를 만든다는 것을 데이터가 증명합니다."},
+  {q:"2028 수능 개편에서 없어지는 것은?",opts:["EBS 연계","절대평가","선택과목","수능 자체"],ans:2,exp:"국어·수학·탐구에서 선택과목이 폐지되고 공통과목으로 통일됩니다. 현 중학교 3학년 이하부터 적용됩니다."},
+  {q:"명지대 반도체공학부 2026년 신입생 규모는?",opts:["30명","54명","98명","120명"],ans:2,exp:"2023년 30명 → 2025년 54명 → 2026년 98명으로 3년 만에 3배 이상 성장했습니다."},
+];
+
+const FLASH=[
+  {q:"3월 학평 성적을 믿으면 안 되는 이유는?",a:"3월 학평은 재수생(N수생) 없이 재학생만 응시. 수능에는 재수생이 포함되어 경쟁이 훨씬 치열해짐. 실제로 73.2%가 수능에서 성적 하락 경험."},
+  {q:"성적 오른 학생들이 비효율적이라고 느낀 학습 방법 3가지는?",a:"① 강의만 듣고 복습 안 함 (37.5%)\n② 문제 오답 정리 안 함 (30.3%)\n③ 계획 없이 오래 앉아 있기 (29.5%)"},
+  {q:"내신 1등급이 이해 확인을 위해 사용하는 방법은?",a:"1등급 30%가 다른 사람에게 설명하거나 혼잣말로 설명해 봄 — 이른바 '파인만 기법'. 설명할 수 없으면 아직 모르는 것."},
+  {q:"2026 수능의 핵심 특징은?",a:"영어 1등급 3.11% (절대평가 이후 역대 최저)\n국어 표준점수 최고점 147점 (전년比 +8점)\n전체 만점자 단 5명 (전년 11명)"},
+  {q:"2028 수능 개편의 핵심 3가지는?",a:"① 선택과목 전면 폐지 → 공통과목으로 통일\n② 내신 9등급제 → 5등급제로 변경\n③ 고교학점제 도입 (진로 맞춤 과목 선택)"},
+  {q:"수시 수능 최저를 맞춰야 하는 이유는?",a:"2026 수능 영어 1등급 3.11%로 급감 → 수능 최저 충족 학생이 줄어듦. 최저를 맞출 수 있다면 오히려 경쟁자가 감소해 합격 가능성 상승."},
+  {q:"명지대 반도체공학부 학생들의 진로 변화는?",a:"입학 시: 대부분 삼성전자·SK하이닉스 대기업 희망\n졸업 시: 10명 중 7명이 반도체 장비·소부장 기업 희망으로 변화. ASML, 램리서치, 도쿄 일렉트론 취업 사례 다수."},
+  {q:"성적 오른 학생들이 포기한 것과 포기하지 않은 것은?",a:"포기한 것: 게임·여가(42.6%), 늦잠·늦은 취침(22.7%)\n포기하지 않은 것: 수면 시간 (43.6%가 전후 변화 없다고 응답)"},
+  {q:"2027학년도 정시에서 달라진 점은?",a:"수능 100% 시대 종료 시작 — 중앙대 출결 10%, 동국대 학생부 10% 정시 반영. 성균관대 사범대 일부 학종 선발. 정시도 이제 수능만이 아님."},
+  {q:"N수생의 과목별 특징은?",a:"수학 7등급 → 상승 비율 48.3%로 독보적\n탐구 5등급 → 상승 비율 69.9%로 가장 높음\n반복 누적 학습이 탐구에서 가장 효과적 → 탐구 집중 전략이 유리"},
+];
+
+let flashIdx=0;
+const answeredQ=new Set();
+
+function switchTab(t){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pg-'+t).classList.add('on');
+  document.getElementById('nb-'+t).classList.add('on');
+  window.scrollTo(0,0);
+}
+function goDet(k){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.getElementById('pg-det-'+k).classList.add('on');
+  window.scrollTo(0,0);
+}
+function goHome(){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.getElementById('pg-home').classList.add('on');
+  window.scrollTo(0,0);
+}
+
+function buildQuiz(){
+  const c=document.getElementById('quiz-ct');
+  QUIZ.forEach((item,i)=>{
+    const d=document.createElement('div');
+    d.className='qcard';d.id='qc'+i;
+    d.innerHTML=`<div class="qnum">Q${i+1} / ${QUIZ.length}</div><div class="qq">${item.q}</div><div class="qopts">${item.opts.map((o,j)=>`<button class="qopt" onclick="ansQ(${i},${j})">${o}</button>`).join('')}</div><div class="qexp" id="qe${i}"><div class="tip gn" style="margin:0;">${item.exp}</div></div>`;
+    c.appendChild(d);
+  });
+}
+function ansQ(qi,chosen){
+  if(answeredQ.has(qi))return;
+  answeredQ.add(qi);
+  const card=document.getElementById('qc'+qi);
+  card.querySelectorAll('.qopt').forEach((b,j)=>{
+    if(j===QUIZ[qi].ans)b.classList.add('ok');
+    else if(j===chosen&&chosen!==QUIZ[qi].ans)b.classList.add('ng');
+    b.disabled=true;
+  });
+  document.getElementById('qe'+qi).classList.add('show');
+}
+
+function renderFlash(){
+  const c=document.getElementById('flash-ct');
+  c.innerHTML='';
+  const item=FLASH[flashIdx];
+  const s=document.createElement('div');
+  s.className='flash-scene';
+  s.innerHTML=`<div class="flash-inner"><div class="flash-f"><div class="ff-lb">문제 ${flashIdx+1}</div><div class="ff-q">${item.q}</div><div class="ff-hint">탭해서 답 확인 ↩</div></div><div class="flash-b"><div class="fb-lb">정답</div><div class="fb-a">${item.a}</div></div></div>`;
+  s.onclick=()=>s.classList.toggle('fl');
+  c.appendChild(s);
+  document.getElementById('fl-c').textContent=`${flashIdx+1} / ${FLASH.length}`;
+  document.getElementById('fl-p').disabled=flashIdx===0;
+  document.getElementById('fl-n').disabled=flashIdx===FLASH.length-1;
+}
+function flashNav(d){
+  flashIdx=Math.max(0,Math.min(FLASH.length-1,flashIdx+d));
+  renderFlash();
+}
+
+buildQuiz();
+renderFlash();
+</script>
+</body>
+</html>
